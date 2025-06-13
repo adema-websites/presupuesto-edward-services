@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta - Plataforma de Gestión de Créditos y Landing Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-family-sans: 'Inter', sans-serif;
+            --color-background: #f8f9fa;
+            --color-surface: #ffffff;
+            --color-text-primary: #1e293b;
+            --color-text-secondary: #64748b;
+            --color-accent: #0f172a;
+            --color-accent-light: #4f46e5;
+            --color-border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --border-radius: 8px;
+        }
+        body { font-family:var(--font-family-sans); margin:0; padding:40px 20px; background-color:var(--color-background); color:var(--color-text-primary); line-height:1.7; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+        .container { max-width:800px; margin:0 auto; background-color:var(--color-surface); padding:50px 60px; box-shadow:var(--shadow); border-radius:var(--border-radius); }
+        header { text-align:center; margin-bottom:60px; }
+        header img { max-width:160px; margin-bottom:20px; }
+        header h1 { color:var(--color-accent); margin:0; font-size:2.2em; font-weight:700; letter-spacing:1px; }
+        header p { color:var(--color-text-secondary); font-size:0.95em; margin:4px 0 0; }
+        h2 { color:var(--color-accent); padding-bottom:12px; margin-top:50px; margin-bottom:25px; font-size:1.2em; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; border-bottom:1px solid var(--color-border); }
+        h3 { color:var(--color-text-primary); margin-top:30px; margin-bottom:15px; font-size:1.2em; font-weight:600; }
+        p, ul { margin-bottom:15px; color:var(--color-text-secondary); }
+        p strong, ul b { color:var(--color-text-primary); font-weight:500; }
+        ul { list-style-type:none; padding-left:0; }
+        ul li { margin-bottom:10px; padding-left:20px; position:relative; }
+        ul li::before { content:'✓'; position:absolute; left:0; color:#10b981; font-weight:700; }
+        
+        /* === AJUSTE: He movido los estilos de la lista ordenada aquí para mantener el código limpio === */
+        ol { list-style-type: decimal; padding-left: 20px; color: var(--color-text-secondary); }
+        ol li { margin-bottom: 10px; }
+
+        table { width:100%; border-collapse:collapse; margin-top:30px; margin-bottom:20px; font-size:0.95em; }
+        table th, table td { padding:15px; text-align:left; border-bottom:1px solid var(--color-border); }
+        table th { color:var(--color-text-secondary); font-weight:600; text-transform:uppercase; font-size:0.8em; letter-spacing:1px; }
+        table td { color:var(--color-text-primary); }
+        table tbody tr:last-child td { border-bottom:none; }
+        .highlight-box { text-align:center; background-color:#f7f9fc; border:1px solid var(--color-border); padding:30px; margin:40px 0; border-radius:var(--border-radius); }
+        .button { display: inline-block; background-color: var(--color-accent-light); color: white; padding: 12px 25px; border-radius: var(--border-radius); text-decoration: none; font-weight: 600; transition: transform 0.2s; }
+        .button:hover { transform: scale(1.05); }
+
+        /* === NUEVO: Contenedor para hacer el video responsivo === */
+        .video-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* Proporción 16:9 para videos */
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .footer { text-align:center; margin-top:70px; padding-top:30px; border-top:1px solid var(--color-border); font-size:0.85em; color:#94a3b8; }
+
+        /* === Media Query para responsividad en móviles === */
+        @media (max-width: 768px) { 
+            body { padding:20px 10px; } 
+            .container { padding:30px 20px; } 
+
+            /* === AJUSTE: Tipografía más balanceada en móvil === */
+            header h1 { font-size: 1.9em; }
+            h2 { font-size: 1.1em; letter-spacing: 1.2px; }
+            h3 { font-size: 1.1em; }
+
+            /* === NUEVO: Estilos para la tabla responsiva === */
+            table thead {
+                display: none; /* Ocultamos los encabezados de la tabla */
+            }
+            table, table tbody, table tr, table td {
+                display: block;
+                width: 100%;
+            }
+            table tr {
+                margin-bottom: 15px;
+                border: 1px solid var(--color-border);
+                border-radius: var(--border-radius);
+                padding: 5px 15px;
+            }
+            table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right;
+                padding: 12px 0;
+                border: none;
+                border-bottom: 1px dashed var(--color-border);
+            }
+            table tr td:last-child {
+                border-bottom: none;
+            }
+            /* Usamos el atributo 'data-label' para crear una pseudo-columna */
+            table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                text-align: left;
+                padding-right: 15px;
+                color: var(--color-text-primary);
+            }
+            table .price-total {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://ademasistemas.com/static/logo.png" alt="Logo Adamasistemas">
+            <h1>Propuesta de Servicio</h1>
+            <p>Plataforma para Gestión de Créditos y Landing Page Comercial</p>
+        </header>
+
+        <main>
+            <h2>CLIENTE</h2>
+            <p><strong>Atención:</strong> Edward General Services</p>
+            <p><strong>País:</strong> Argentina</p>
+            <p><strong>Fecha:</strong> 13 de Junio de 2025</p>
+
+            <h2>UN POCO SOBRE NOSOTROS</h2>
+            <p>¡Hola! Somos <b>Adamasistemas</b>, apasionados por transformar ideas en soluciones digitales que realmente funcionen. Nos encanta crear software a medida y plataformas web robustas que no solo hacen tu trabajo más fácil, sino que también impulsan tu negocio hacia adelante. </p>
+            <p>Si querés conocer un poco más sobre nosotros, te invitamos a visitar nuestra web: <a href="https://ademasistemas.com" target="_blank" style="color: var(--color-accent-light); text-decoration: underline;">ademasistemas.com</a> ¡Estamos listos para ayudarte a crecer!</p>
+            
+            <h2>LA SOLUCIÓN INTEGRAL PARA SU NEGOCIO</h2>
+            <p>Esta propuesta combina una potente plataforma de gestión de créditos con una landing page comercial diseñada para captar nuevos clientes y dar visibilidad a sus servicios.</p>
+
+            <h2>PLATAFORMA DE GESTIÓN DE CRÉDITOS</h2>
+            <p>El sistema le permite tener un control total sobre su operación de créditos. A continuación, se detallan las funcionalidades clave:</p>
+
+            <h3>Gestión de Clientes y Créditos</h3>
+            <ul>
+                <li><b>Registro Completo de Clientes:</b> Gestione la información personal y de contacto de sus clientes.</li>
+                <li><b>Administración de Créditos:</b> Cree, asigne y realice un seguimiento detallado de cada crédito.</li>
+                <li><b>Pagos y Cuotas:</b> Registre los pagos de los clientes, genere cuotas y mantenga un historial claro de transacciones.</li>
+            </ul>
+
+            <h3>Control y Seguimiento</h3>
+            <ul>
+                <li><b>Informes Personalizables:</b> Acceda a reportes sobre el estado de sus créditos, historial de pagos y rendimiento.</li>
+                <li><b>Gestión de Usuarios:</b> Asigne roles y permisos a diferentes usuarios para controlar el acceso a la información.</li>
+                <li><b>Alertas y Notificaciones:</b> Reciba avisos sobre vencimientos de pagos y otras acciones importantes.</li>
+            </ul>
+
+            <h2>DESARROLLO DE LANDING PAGE COMERCIAL</h2>
+            <p>Crearemos una página web de alto impacto, enfocada en atraer y convertir visitantes interesados en sus servicios de resolución de infracciones y recuperación de vehículos incautados. La landing page incluirá:</p>
+            <ul>
+                <li><b>Diseño Profesional y Responsivo:</b> Adaptado para verse perfectamente en computadoras, tablets y celulares.</li>
+                <li><b>Mensaje Claro y Directo:</b> Titulares que atacan el problema del cliente ("¿Tenés tu Vehículo Incautado o Deudas de Infracciones?").</li>
+                <li><b>Secciones de Valor:</b>
+                    <ul>
+                        <li>**Hero Section:** Con CTA destacados para WhatsApp y Formulario.</li>
+                        <li>**Problema y Solución:** Descripción de cómo Edward General Services resuelve las necesidades del cliente.</li>
+                        <li>**Nuestros Servicios Detallados:** Explicación clara de la gestión de infracciones, recuperación de vehículos y facilidades de pago.</li>
+                        <li>**¿Por Qué Elegirnos?:** Puntos clave que generan confianza (atención personalizada, experiencia, rapidez, transparencia).</li>
+                        <li>**Testimonios:** (Si se proveen) Elementos de prueba social.</li>
+                    </ul>
+                </li>
+                <li><b>Integración de Contacto Directo:</b>
+                    <ul>
+                        <li>Botón de **WhatsApp directo** para consultas inmediatas.</li>
+                        <li>**Formulario de Contacto** para solicitudes de presupuesto y más información.</li>
+                    </ul>
+                </li>
+                <li><b>Información de Contacto Completa:</b> Teléfono, horarios y ubicación física con mapa interactivo.</li>
+                <li><b>Optimización Básica (SEO):</b> Preparada para ser encontrada en buscadores.</li>
+            </ul>
+            <p><b>Tiempo Estimado de Desarrollo:</b> 3 días hábiles.</p>
+
+
+            <h2>PROPUESTA ECONÓMICA</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>CONCEPTO</th>
+                        <th style="text-align: right;">IMPORTES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Concepto">Licencia de Uso - Plataforma de Gestión de Créditos</td>
+                        <td data-label="Importe (ARS)"><b>$ 17.700 Ars (Pago único)</b></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Concepto">Desarrollo de Landing Page Comercial</td>
+                        <td data-label="Importe (ARS)"><b>$ 60.000 Ars (Pago único)</b></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Concepto"><b>Servicio Mensual de Plataforma y Hosting</b><br><small>Incluye Hosting, Soporte por caídas de servidor y errores de sistema, Mantenimiento y Backups semanales con historial de 2.</small></td>
+                        <td data-label="Importe (ARS)" class="price-total">$ 30.000 Ars / mes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>CONDICIONES DE PAGO Y CONTRATACIÓN</h2>
+            <ul>
+                <li>Para iniciar el desarrollo de la Landing Page, se requiere un **anticipo del 50%** del valor correspondiente al "Desarrollo de Landing Page Comercial".</li>
+                <li>El **saldo restante (50%)** del desarrollo de la Landing Page deberá ser cancelado al momento de la entrega y aprobación de la misma.</li>
+                <li>La **Licencia de Uso de la Plataforma de Gestión de Créditos** ($17.700 Ars) se abona en su totalidad al inicio del proyecto, junto con el anticipo de la Landing Page.</li>
+                <li>El **Servicio Mensual de Plataforma y Hosting** ($30.000 Ars / mes) comenzará a facturarse a partir de la fecha de entrega y puesta en marcha de la Landing Page y la Plataforma de Gestión de Créditos.</li>
+            </ul>
+
+            <h2>¿NECESITA MODIFICACIONES? (DESARROLLO A MEDIDA)</h2>
+            <p>La plataforma actual y la landing page son un punto de partida sólido y flexible. Si después de usarlas considera que necesita alguna funcionalidad adicional o un ajuste específico, <strong>podemos pactar una reunión para evaluarlo</strong>. </p>
+            <p>Los desarrollos a medida se cotizan por separado, permitiéndole construir la herramienta perfecta sobre una base ya funcional. Nuestra tarifa de referencia para desarrollos es de <b>$30 USD por hora</b>.</p>
+
+        </main>
+
+        <div class="footer">
+            <p>Gracias por la oportunidad de presentarle esta propuesta. Estamos a su disposición para cualquier consulta.</p>
+            <p>&copy; 2025 Adamasistemas. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>
